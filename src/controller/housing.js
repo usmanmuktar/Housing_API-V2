@@ -38,7 +38,7 @@ export default({ config, db }) => {
         res.send(err);
       }
       res.send(housings);
-    });
+    }).limit(25);
   });
 
   // '/housing/:State' - Read all houses filtered by State and return the selected fields Address, Locality, State, ZipCode and Price
@@ -48,7 +48,7 @@ export default({ config, db }) => {
         res.send(err);
       }
       res.send(housings);
-    });
+    }).limit(25);
   });
 
 
@@ -59,7 +59,7 @@ export default({ config, db }) => {
         res.send(err);
       }
       res.send(housings);
-    });
+    }).limit(25);
   });
 
 
@@ -70,7 +70,7 @@ export default({ config, db }) => {
         res.send(err);
       }
       res.send(housings);
-    });
+    }).limit(25);
   });
 
   // '/housing/Coordinates - Read all houses and return the Coordinates ( Longitude and Latitude )
@@ -80,7 +80,7 @@ export default({ config, db }) => {
         res.send(err);
       }
       res.send(housings);
-    });
+    }).limit(25);
   });
 
   // '/housing/Coordinates/:State' - Read all houses filtered by State and return the Coordinates ( Longitude and Latitude )
@@ -90,7 +90,7 @@ export default({ config, db }) => {
         res.send(err);
       }
       res.send(housings);
-    });
+    }).limit(25);
   });
 
 
@@ -101,7 +101,7 @@ export default({ config, db }) => {
         res.send(err);
       }
       res.send(housings);
-    });
+    }).limit(25);
   });
 
 
@@ -112,7 +112,7 @@ export default({ config, db }) => {
         res.send(err);
       }
       res.send(housings);
-    });
+    }).limit(25);
   });
 
 
