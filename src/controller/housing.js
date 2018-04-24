@@ -19,6 +19,7 @@ export default({ config, db }) => {
     newHouse.Locality = req.body.Locality;
     newHouse.State = req.body.State;
     newHouse.ZipCode = req.body.ZipCode;
+    newHouse.Price = req.body.Price;
     newHouse.Latitude = req.body.Latitude;
     newHouse.Longitude = req.body.Longitude;
 
@@ -30,9 +31,9 @@ export default({ config, db }) => {
     });
   });
 
-  // '/housing - Read all houses
+  // '/housing - Read all houses and return the selected fields Address, Locality, State, ZipCode and Price
   api.get('/', (req, res) => {
-    Housing.find({}, (err, housings) => {
+    Housing.find({}, {'Address': 1, 'Locality' : 1, 'State' : 1, 'ZipCode' : 1, 'Price' : 1}, (err, housings) => {
       if (err) {
         res.send(err);
       }
@@ -40,9 +41,9 @@ export default({ config, db }) => {
     });
   });
 
-  // '/housing/:State' - Read
+  // '/housing/:State' - Read all houses filtered by State and return the selected fields Address, Locality, State, ZipCode and Price
   api.get('/State=:State', (req, res) => {
-    Housing.find({'State': req.params.State}, (err, housings) => {
+    Housing.find({'State': req.params.State}, {'Address': 1, 'Locality' : 1, 'State' : 1, 'ZipCode' : 1, 'Price' : 1}, (err, housings) => {
       if (err) {
         res.send(err);
       }
@@ -51,9 +52,9 @@ export default({ config, db }) => {
   });
 
 
-  // 'housing/State=:State?Locality=:Locality' - Read
+  // 'housing/State=:State?Locality=:Locality' - Read all houses filtered by State, Locality and return the selected fields Address, Locality, State, ZipCode and Price
   api.get('/State=:State/Locality=:Locality', (req, res) => {
-    Housing.find({'State': req.params.State, 'Locality': req.params.Locality}, (err, housings) => {
+    Housing.find({'State': req.params.State, 'Locality': req.params.Locality}, {'Address': 1, 'Locality' : 1, 'State' : 1, 'ZipCode' : 1, 'Price' : 1}, (err, housings) => {
       if (err) {
         res.send(err);
       }
@@ -62,15 +63,58 @@ export default({ config, db }) => {
   });
 
 
-  // 'housing/State=:State&Locality=:Locality&ZipCode=:ZipCode' - Read
+  // 'housing/State=:State&Locality=:Locality&ZipCode=:ZipCode' - Read all houses filtered by State, Locality, ZipCode and return the selected fields Address, Locality, State, ZipCode and Price
   api.get('/State=:State/Locality=:Locality/ZipCode=:ZipCode', (req, res) => {
-    Housing.find({'State': req.params.State, 'Locality': req.params.Locality, 'ZipCode': req.params.ZipCode}, (err, housings) => {
+    Housing.find({'State': req.params.State, 'Locality': req.params.Locality, 'ZipCode': req.params.ZipCode}, {'Address': 1, 'Locality' : 1, 'State' : 1, 'ZipCode' : 1, 'Price' : 1}, (err, housings) => {
       if (err) {
         res.send(err);
       }
       res.send(housings);
     });
   });
+
+  // '/housing/Coordinates - Read all houses and return the Coordinates ( Longitude and Latitude )
+  api.get('/Coordinates', (req, res) => {
+    Housing.find({}, {'_id' : 0, 'Longitude' : 1, 'Latitude' : 1}, (err, housings) => {
+      if (err) {
+        res.send(err);
+      }
+      res.send(housings);
+    });
+  });
+
+  // '/housing/Coordinates/:State' - Read all houses filtered by State and return the Coordinates ( Longitude and Latitude )
+  api.get('/Coordinates/State=:State', (req, res) => {
+    Housing.find({'State': req.params.State}, {'_id' : 0, 'Longitude' : 1, 'Latitude' : 1}, (err, housings) => {
+      if (err) {
+        res.send(err);
+      }
+      res.send(housings);
+    });
+  });
+
+
+  // 'housing/Coordinates/State=:State?Locality=:Locality' - Read all houses filtered by State, Locality and return the Coordinates ( Longitude and Latitude )
+  api.get('/Coordinates/State=:State/Locality=:Locality', (req, res) => {
+    Housing.find({'State': req.params.State, 'Locality': req.params.Locality}, {'_id' : 0, 'Longitude' : 1, 'Latitude' : 1}, (err, housings) => {
+      if (err) {
+        res.send(err);
+      }
+      res.send(housings);
+    });
+  });
+
+
+  // 'housing/Coordinates/State=:State&Locality=:Locality&ZipCode=:ZipCode' - Read all houses filtered by State, Locality, ZipCode and return the Coordinates ( Longitude and Latitude )
+  api.get('/Coordinates/State=:State/Locality=:Locality/ZipCode=:ZipCode', (req, res) => {
+    Housing.find({'State': req.params.State, 'Locality': req.params.Locality, 'ZipCode': req.params.ZipCode}, {'_id' : 0, 'Longitude' : 1, 'Latitude' : 1}, (err, housings) => {
+      if (err) {
+        res.send(err);
+      }
+      res.send(housings);
+    });
+  });
+
 
 
   // 'housing/:id' - Read
